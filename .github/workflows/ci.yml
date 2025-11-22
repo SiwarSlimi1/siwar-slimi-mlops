@@ -11,9 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run Python script
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
         run: |
-          python3 main.py << EOF
-          3
-          EOF
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || echo "No requirements file found"
+      - name: Run main.py
+        run: python main.py
+
 
